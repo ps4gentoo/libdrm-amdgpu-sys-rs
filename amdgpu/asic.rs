@@ -100,6 +100,8 @@ pub enum ASIC_NAME {
     CHIP_HAINAN,
     /* GFX7 (Sea Islands) */
     CHIP_BONAIRE,
+    CHIP_LIVERPOOL,
+    CHIP_GLADIUS,
     CHIP_KAVERI,
     CHIP_KABINI,
     CHIP_HAWAII, /* Radeon 290, 390 */
@@ -183,7 +185,11 @@ impl ASIC_NAME {
             FAMILY_NAME::KV => {
                 match rev {
                     /* Spectre, Spooky */
-                    0x01..0x41 | 0x41..0x81 => Self::CHIP_KAVERI,
+                    0x01..0x41 | 0x41..0x61 => Self::CHIP_KAVERI,
+                    /* LIVERPOOL */
+                    0x61..0x71 | 0x61..0x71 => Self::CHIP_LIVERPOOL,
+                    /* LIVERPOOL */
+                    0x71..0x81 | 0x71..0x81 => Self::CHIP_GLADIUS,
                     /* Kalindi, Godavari */
                     0x81..0xA1 | 0xA1..0xFF => Self::CHIP_KABINI,
                     _ => Self::CHIP_UNKNOWN,
@@ -361,6 +367,8 @@ impl ASIC_NAME {
             Self::CHIP_VERDE
             | Self::CHIP_HAINAN
             | Self::CHIP_BONAIRE
+            | Self::CHIP_GLADIUS
+            | Self::CHIP_LIVERPOOL
             | Self::CHIP_KAVERI
             | Self::CHIP_ICELAND
             | Self::CHIP_CARRIZO
@@ -410,6 +418,8 @@ impl ASIC_NAME {
             Self::CHIP_OLAND => "oland",
             Self::CHIP_HAINAN => "hainan",
             Self::CHIP_BONAIRE => "bonaire",
+            Self::CHIP_LIVERPOOL => "liverpool",
+            Self::CHIP_GLADIUS => "gladius",
             Self::CHIP_KABINI => "kabini",
             Self::CHIP_KAVERI => "kaveri",
             Self::CHIP_HAWAII => "hawaii",
@@ -456,6 +466,8 @@ impl ASIC_NAME {
             Self::CHIP_OLAND |
             Self::CHIP_HAINAN => "gfx602",
             Self::CHIP_BONAIRE => "gfx704",
+            Self::CHIP_LIVERPOOL => "gfx704",
+            Self::CHIP_GLADIUS => "gfx704",
             Self::CHIP_KABINI => "gfx703",
             Self::CHIP_KAVERI => "gfx700",
             Self::CHIP_HAWAII => "gfx701",
@@ -573,6 +585,8 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_HAINAN => write!(f, "Hainan"),
             /* GFX7 (Sea Islands) */
             Self::CHIP_BONAIRE => write!(f, "Bonaire"),
+            Self::CHIP_LIVERPOOL => write!(f, "Liverpool"),
+            Self::CHIP_GLADIUS => write!(f, "Gladius"),
             Self::CHIP_KAVERI => write!(f, "Kaveri"),
             Self::CHIP_KABINI => write!(f, "Kabini"),
             Self::CHIP_HAWAII => write!(f, "Hawaii"),
